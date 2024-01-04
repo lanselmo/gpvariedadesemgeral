@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_material_symbols/flutter_material_symbols.dart';
+//import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MyWebsite extends StatefulWidget {
@@ -30,9 +30,7 @@ class MyWebsiteState extends State<MyWebsite> {
           inAppWebViewController.reload();
         },
         options: PullToRefreshOptions(
-            color: Colors.white,
-            backgroundColor: Colors.red
-        ));
+            color: Colors.white, backgroundColor: Colors.red));
   }
 
   @override
@@ -57,7 +55,7 @@ class MyWebsiteState extends State<MyWebsite> {
     return InAppWebView(
       pullToRefreshController: refreshController,
       initialUrlRequest: URLRequest(
-        url: Uri.parse("https://gpvariedadesemgeral.lojavirtualnuvem.com.br/"),
+        url: Uri.parse("https://turistandosp.com.br"),
       ),
       initialOptions: InAppWebViewGroupOptions(
         crossPlatform: InAppWebViewOptions(
@@ -101,33 +99,64 @@ class MyWebsiteState extends State<MyWebsite> {
 
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(MaterialSymbols.home_outlined),
+          icon: SizedBox(
+            width: 24,
+            height: 24,
+            child: Image(
+              image: const AssetImage('lib/icons/home.png'),
+              color: _selectedIndex == 0 ? Colors.blue : Colors.black,
+            ),
+          ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(MaterialSymbols.search_filled_outlined),
-          label: 'Buscar',
+          icon: SizedBox(
+            width: 24,
+            height: 24,
+            child: Image(
+              image: const AssetImage('lib/icons/pessoa.png'),
+              color: _selectedIndex == 1 ? Colors.blue : Colors.black,
+            ),
+          ),
+          label: 'Somos',
         ),
         BottomNavigationBarItem(
-          icon: Icon(MaterialSymbols.filter_alt_outlined),
-          label: 'Todos',
+          icon: SizedBox(
+            width: 24,
+            height: 24,
+            child: Image(
+              image: const AssetImage('lib/icons/sacola.png'),
+              color: _selectedIndex == 2 ? Colors.blue : Colors.black,
+            ),
+          ),
+          label: 'Compras',
         ),
         BottomNavigationBarItem(
-          icon: Icon(MaterialSymbols.help_outlined),
-          label: 'Contato',
+          icon: SizedBox(
+            width: 24,
+            height: 24,
+            child: Image(
+              image: const AssetImage('lib/icons/contato.png'),
+              color: _selectedIndex == 3 ? Colors.blue : Colors.black,
+            ),
+          ),
+          label: 'Somos',
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: Colors.black,
-      unselectedItemColor: Colors.grey,
+      selectedItemColor: Colors.blue,
+      unselectedItemColor: Colors.black,
+      selectedIconTheme: const IconThemeData(color: Colors.black),
+      unselectedIconTheme: const IconThemeData(color: Colors.black),
       onTap: _onBottomNavTapped,
       showSelectedLabels: true,
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
     );
   }
+
 
   Future<bool> _onWillPop() async {
     if (!_isConnected) {
@@ -152,13 +181,13 @@ class MyWebsiteState extends State<MyWebsite> {
 
     // Load different URLs based on the selected index
     if (index == 0) {
-      loadUrl("https://gpvariedadesemgeral.lojavirtualnuvem.com.br/");
+      loadUrl("https://turistandosp.com.br/");
     } else if (index == 1) {
-      loadUrl("https://gpvariedadesemgeral.lojavirtualnuvem.com.br/search/?q=");
+      loadUrl("https://turistandosp.com.br/category/restaurantes-sp/comidas-tipicas/");
     } else if (index == 2) {
-      loadUrl("https://gpvariedadesemgeral.lojavirtualnuvem.com.br/produtos/");
+      loadUrl("https://www.eletrosommusical.com.br/login");
     } else if (index == 3) {
-      loadUrl("https://gpvariedadesemgeral.lojavirtualnuvem.com.br/contato/");
+      loadUrl("https://www.eletrosommusical.com.br/central-de-atendimento");
     }
   }
 
@@ -167,16 +196,14 @@ class MyWebsiteState extends State<MyWebsite> {
   }
 
   void _onPageLoaded(Uri? url) {
-    if (url?.toString() ==
-        "https://gpvariedadesemgeral.lojavirtualnuvem.com.br/") {
+    if (url?.toString() == "https://turistandosp.com.br/") {
       _updateSelectedIndex(0);
     } else if (url?.toString() ==
-        "https://gpvariedadesemgeral.lojavirtualnuvem.com.br/search/?q=") {
+        "https://turistandosp.com.br/category/restaurantes-sp/comidas-tipicas/") {
       _updateSelectedIndex(1);
-    } else if (url?.toString() == "https://gpvariedadesemgeral.lojavirtualnuvem.com.br/produtos/") {
+    } else if (url?.toString() == "https://www.eletrosommusical.com.br/login") {
       _updateSelectedIndex(2);
-    } else if (url?.toString() ==
-        "https://gpvariedadesemgeral.lojavirtualnuvem.com.br/contato/") {
+    } else if (url?.toString() == "https://www.bateraecia.com/contato") {
       _updateSelectedIndex(3);
     }
   }
