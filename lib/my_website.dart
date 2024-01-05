@@ -55,7 +55,7 @@ class MyWebsiteState extends State<MyWebsite> {
     return InAppWebView(
       pullToRefreshController: refreshController,
       initialUrlRequest: URLRequest(
-        url: Uri.parse("https://turistandosp.com.br"),
+        url: Uri.parse("https://www.eletrosommusical.com.br/"),
       ),
       initialOptions: InAppWebViewGroupOptions(
         crossPlatform: InAppWebViewOptions(
@@ -90,8 +90,8 @@ class MyWebsiteState extends State<MyWebsite> {
 
   Widget _buildLoadingIndicator() {
     return Center(
-      child: LoadingAnimationWidget.prograssiveDots(
-        color: const Color(0xffca5a5b),
+      child: LoadingAnimationWidget.horizontalRotatingDots(
+        color: const Color(0xff0b0b0b),
         size: 50,
       ),
     );
@@ -142,7 +142,7 @@ class MyWebsiteState extends State<MyWebsite> {
               color: _selectedIndex == 3 ? Colors.blue : Colors.black,
             ),
           ),
-          label: 'Somos',
+          label: 'Contato',
         ),
       ],
       currentIndex: _selectedIndex,
@@ -156,7 +156,6 @@ class MyWebsiteState extends State<MyWebsite> {
       type: BottomNavigationBarType.fixed,
     );
   }
-
 
   Future<bool> _onWillPop() async {
     if (!_isConnected) {
@@ -181,9 +180,9 @@ class MyWebsiteState extends State<MyWebsite> {
 
     // Load different URLs based on the selected index
     if (index == 0) {
-      loadUrl("https://turistandosp.com.br/");
+      loadUrl("https://www.eletrosommusical.com.br/");
     } else if (index == 1) {
-      loadUrl("https://turistandosp.com.br/category/restaurantes-sp/comidas-tipicas/");
+      loadUrl("https://www.eletrosommusical.com.br/quem-somos");
     } else if (index == 2) {
       loadUrl("https://www.eletrosommusical.com.br/login");
     } else if (index == 3) {
@@ -196,14 +195,15 @@ class MyWebsiteState extends State<MyWebsite> {
   }
 
   void _onPageLoaded(Uri? url) {
-    if (url?.toString() == "https://turistandosp.com.br/") {
+    if (url?.toString() == "https://www.eletrosommusical.com.br/") {
       _updateSelectedIndex(0);
     } else if (url?.toString() ==
-        "https://turistandosp.com.br/category/restaurantes-sp/comidas-tipicas/") {
+        "https://www.eletrosommusical.com.br/quem-somos") {
       _updateSelectedIndex(1);
     } else if (url?.toString() == "https://www.eletrosommusical.com.br/login") {
       _updateSelectedIndex(2);
-    } else if (url?.toString() == "https://www.bateraecia.com/contato") {
+    } else if (url?.toString() ==
+        "https://www.eletrosommusical.com.br/central-de-atendimento") {
       _updateSelectedIndex(3);
     }
   }

@@ -68,7 +68,7 @@ flutter:
   assets:
     - lib/icons/home.png
     - lib/icons/sacola.png
-    - lib/icons/cate.png
+    #- lib/icons/cate.png
     - lib/icons/pessoa.png
     - lib/icons/contato.png
 
