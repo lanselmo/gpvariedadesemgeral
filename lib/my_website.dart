@@ -5,7 +5,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MyWebsite extends StatefulWidget {
-  const MyWebsite({Key? key}) : super(key: key);
+  const MyWebsite({super.key});
 
   @override
   State<MyWebsite> createState() => MyWebsiteState();
@@ -26,12 +26,16 @@ class MyWebsiteState extends State<MyWebsite> {
 
     // Show to load end screw end Push Refresh Indication.
     refreshController = PullToRefreshController(
-        onRefresh: () {
-          inAppWebViewController.reload();
-        },
-        options: PullToRefreshOptions(
-            color: Colors.white, backgroundColor: Colors.red));
+      settings: PullToRefreshSettings(
+          color: Colors.deepOrangeAccent, backgroundColor: Colors.white),
+      onRefresh: () {
+        inAppWebViewController.reload();
+      },
+    );
   }
+
+  //options: PullToRefreshOptions(
+  //color: Colors.white, backgroundColor: Colors.red)
 
   @override
   Widget build(BuildContext context) {
@@ -55,26 +59,29 @@ class MyWebsiteState extends State<MyWebsite> {
     return InAppWebView(
       pullToRefreshController: refreshController,
       initialUrlRequest: URLRequest(
-        url: Uri.parse("https://www.eletrosommusical.com.br/"),
+        url: WebUri("https://www.eletrosommusical.com.br/"),
       ),
-      initialOptions: InAppWebViewGroupOptions(
+      initialSettings: InAppWebViewSettings(
+        supportZoom: false,
+        transparentBackground: true,
+      ),
+
+      /*initialOptions: InAppWebViewGroupOptions(
         crossPlatform: InAppWebViewOptions(
           supportZoom: false,
           transparentBackground: true,
         ),
-      ),
+
+      ),*/
+
+      onReceivedError: ((InAppWebViewController controller, request, error) =>
+          (_isConnected = false)),
       onWebViewCreated: (InAppWebViewController controller) {
         inAppWebViewController = controller;
       },
       onProgressChanged: (InAppWebViewController controller, int progress) {
         setState(() {
           _progress = progress / 100;
-        });
-      },
-      onLoadError: (InAppWebViewController controller, Uri? url, int code,
-          String message) {
-        setState(() {
-          _isConnected = false;
         });
       },
       onLoadStop: (InAppWebViewController controller, Uri? url) {
@@ -191,7 +198,7 @@ class MyWebsiteState extends State<MyWebsite> {
   }
 
   void loadUrl(String url) {
-    inAppWebViewController.loadUrl(urlRequest: URLRequest(url: Uri.parse(url)));
+    inAppWebViewController.loadUrl(urlRequest: URLRequest(url: WebUri(url)));
   }
 
   void _onPageLoaded(Uri? url) {
